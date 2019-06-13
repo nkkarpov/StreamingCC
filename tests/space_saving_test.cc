@@ -3,7 +3,7 @@
 //
 
 
-#include "../src/streamingcc_include/SpaceSaving.h"
+#include "../src/streamingcc_include/space_saving.h"
 
 #define BOOST_TEST_MODULE ClassTest
 #define BOOST_TEST_DYN_LINK

@@ -4,7 +4,7 @@
 
 
 
-#include "../src/streamingcc_include/MisraGries.h"
+#include "../src/streamingcc_include/misra_gries.h"
 
 #define BOOST_TEST_MODULE ClassTest
 #define BOOST_TEST_DYN_LINK

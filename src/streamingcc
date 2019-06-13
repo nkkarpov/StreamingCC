@@ -8,7 +8,7 @@
 #include "streamingcc_include/f2.h"
 #include "streamingcc_include/count_min.h"
 #include "streamingcc_include/sampling.h"
-#include "streamingcc_include/MisraGries.h"
-#include "streamingcc_include/SpaceSaving.h"
+#include "streamingcc_include/misra_gries.h"
+#include "streamingcc_include/space_saving.h"
 
 #endif  // SRC_STREAMINGCC

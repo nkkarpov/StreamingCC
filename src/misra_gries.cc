@@ -1,26 +1,18 @@
 //
-// Created by nk-karpov on 2019-05-30.
+// Created by Nikolai Karpov on 2019-02-24.
 //
-
-#include "streamingcc_include/SpaceSaving.h"
-
-#include <cassert>
+#include "streamingcc_include/misra_gries.h"
 
 namespace streamingcc {
 
 namespace integer {
 
-void SpaceSavingInt::ProcessItem(const uint32_t item, const double weight) {
+void MisraGriesInt::ProcessItem(const uint32_t item, const double weight) {
   assert(weight >= 0.);
   auto pred = [&](const counter &x) { return x.first == item; };
   auto ind = std::distance(counters_.begin(), std::find_if(counters_.begin(), counters_.end(), pred));
-  auto min_value = !counters_.empty() ? counters_.back().second : 0.;
   if (ind == counters_.size()) {
-    if (counters_.size() == capacity_) {
-      counters_.emplace_back(counter(item, min_value + weight));
-    } else {
-      counters_.emplace_back(counter(item, weight));
-    }
+    counters_.emplace_back(counter(item, weight));
   } else {
     counters_[ind].second += weight;
   }
@@ -28,21 +20,25 @@ void SpaceSavingInt::ProcessItem(const uint32_t item, const double weight) {
             counters_.end(),
             [](const counter &a, const counter &b) { return a.second > b.second; });
   if (counters_.size() > capacity_) {
+    auto val = counters_.back().second;
     counters_.pop_back();
+    for (auto &x : counters_) {
+      x.second -= val;
+    }
   }
 }
 
-double SpaceSavingInt::GetEstimation(const uint32_t item) const {
+double MisraGriesInt::GetEstimation(const uint32_t item) const {
   auto pred = [&](const counter &x) { return x.first == item; };
   auto it = std::find_if(counters_.begin(), counters_.end(), pred);
-  auto min_value = !counters_.empty() ? counters_.back().second : 0;
   if (it != counters_.end()) {
     return it->second;
   } else {
-    return min_value;
+    return 0.;
   }
 }
 
 } //namespace integer
 
 } //namespace streamingcc
+
