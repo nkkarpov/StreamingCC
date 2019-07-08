@@ -11,11 +11,10 @@ namespace streamingcc {
 namespace integer {
 
 void SpaceSavingInt::ProcessItem(const uint32_t item, const double weight) {
-  assert(weight >= 0.);
   auto pred = [&](const counter &x) { return x.first == item; };
   auto ind = std::distance(counters_.begin(), std::find_if(counters_.begin(), counters_.end(), pred));
   auto min_value = !counters_.empty() ? counters_.back().second : 0.;
-  if (ind == counters_.size()) {
+  if (ind == long(counters_.size())) {
     if (counters_.size() == capacity_) {
       counters_.emplace_back(counter(item, min_value + weight));
     } else {

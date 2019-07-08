@@ -3,15 +3,16 @@
 //
 #include "streamingcc_include/misra_gries.h"
 
+#include <cassert>
+
 namespace streamingcc {
 
 namespace integer {
 
 void MisraGriesInt::ProcessItem(const uint32_t item, const double weight) {
-  assert(weight >= 0.);
   auto pred = [&](const counter &x) { return x.first == item; };
   auto ind = std::distance(counters_.begin(), std::find_if(counters_.begin(), counters_.end(), pred));
-  if (ind == counters_.size()) {
+  if (ind == long(counters_.size())) {
     counters_.emplace_back(counter(item, weight));
   } else {
     counters_[ind].second += weight;
